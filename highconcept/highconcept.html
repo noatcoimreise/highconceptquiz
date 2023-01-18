@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <title>High Concept Quiz</title>
+    <style>
+
+.hidecleave {
+  display: none;
+  position: absolute;
+}
+
+.showcleave {
+  display: inline;
+  position: absolute;
+}
+
+.btn {
+  width: 85px;
+  margin-top: 3px;
+  /*font-size: 30pt;*/
+  position: absolute;
+  text-decoration: none;
+  font-family: "Arial";
+  font-size: 13px;
+  padding: 0px;
+  /*background-color: transparent;*/
+  /*color: black;*/
+}
+
+.btn-primary {
+  color:black;
+  background-color:silver;
+}
+
+.btn-markers {
+  font-size: 35px;
+  font-weight: bold;
+  background-color:transparent;
+  width: 45px;
+  height: 45px;
+  color: white;
+  text-shadow: -2px -2px 0px white;
+}
+
+.btn-concepts {
+  border-radius: 50%;
+  font-size: 80px;
+  font-weight: bold;
+  width: 60px;
+  height: 60px;
+  background-color:transparent;
+}
+
+.btn-fail {
+  border-color:red;
+  background-color:red;
+}
+
+.btn-wind {
+  background-color:lightgreen;
+}
+
+.btn-water {
+  background-color: rgb(11, 168, 230);
+}
+
+.btn-lightning {
+  background-color:mediumpurple;
+}
+
+.smaller {
+  font-size: 8pt !important;
+}
+
+.my-2 {
+  height: 80px;
+}
+
+.promptsuccess {
+  width: 120px;
+}
+
+#prompt img {
+  width: auto;
+}
+
+#answerButtons {
+  position: relative;
+  background-image: url('images/background.jpg');
+  background-size: contain;
+  width: 574px;
+  height: 574px;
+}
+
+#answerButtons :last-child {
+  width: 612px;
+  margin-top:  14px;
+  height:  50px;
+}
+    </style>
+  </head>
+  <body>
+    <div style="margin:5px;">
+      <!-- Header -->
+      <h2 class="d-flex">High Concept Quiz - P8S Phase 2</h2>
+      <a href="https://www.icy-veins.com/ffxiv/the-eighth-circle-phase-2-savage-raid-guide">Strategy (ice-veins)</a>
+      <hr>
+      <!-- Answer pane -->
+      <div style="padding-top:1px; padding-bottom:1px;">
+        <div class="my-2">
+          <h3 class="" id="prompt"></h3>
+        </div><br />
+        <div id="answerButtons">
+          <img src="images/westside.png" id="westside" style="width: 290px; height: 60px; left:0%; top:0%;" class="hidecleave" />
+          <img src="images/eastside.png" id="eastside" style="width: 287px; height: 60px; left:50%; top:0%;" class="hidecleave" />
+          <div style="transform: rotate(45deg); color: white; font-size: 90px; left: 20%; top: 40%;" class="hidecleave" id="success">SUCCESS</div>
+          <button type="button" class="btn btn-primary btn-markers" id="a_ne" style="left:82%; top:10%; border-color: red; color: red;">A</button><br>
+          <button type="button" class="btn btn-primary btn-markers" id="b_se" style="left:82%; top:81%; border-color: yellow; color: yellow;">B</button>
+          <button type="button" class="btn btn-primary btn-markers" id="c_sw" style="left:11%; top:81%; border-color: dodgerblue; color: dodgerblue;">C</button>
+          <button type="button" class="btn btn-primary" id="left" style="left:11%; top:48%;">Left</button>
+          <button type="button" class="btn btn-primary" id="right" style="left:75%; top:48%;">Right</button>
+          <button type="button" class="btn btn-primary btn-concepts" id="concept1" style="left:45%; top:25%;"></button>
+          <button type="button" class="btn btn-primary btn-concepts" id="concept2" style="left:45%; top:65%;"></button>
+          <button type="button" class="btn btn-primary btn-concepts" id="concept3a" style="left:45%; top:15%;"></button>
+          <button type="button" class="btn btn-primary btn-concepts" id="concept3b" style="left:45%; top:35%;"></button>
+          <button type="button" class="btn btn-primary btn-concepts" id="concept3c" style="left:45%; top:55%;"></button>
+          <button type="button" class="btn btn-primary btn-concepts" id="concept3d" style="left:45%; top:75%;"></button>
+          <button type="button" class="btn btn-primary" id="middle" style="left:43%; top:48%;">Middle</button>
+          <button type="button" class="btn btn-primary btn-markers" id="3_nw" style="left:11%; top:28%; border-color: dodgerblue; color: dodgerblue;">3</button>
+          <button type="button" class="btn btn-primary btn-markers" id="2_nw" style="left:26%; top:10%; border-color: yellow; color: yellow;">2</button>
+          <button type="button" class="btn btn-primary pepowide" id="finished" style="left:41%; top:88%; width: 100px; display: none;">Done</button>
+          <!--<button type="button" class="btn btn-primary pepowide" id="next" style="left:41%; top:88%; width: 100px;">Next</button>-->
+        </div>
+      </div>
+      <p><b id="streak">Streak: 0</b><button type="button" class="btn btn-primary" id="next" style="left:245px; height: 30px;">Next</button></p>
+      <p><u>Cheat Sheet</u>
+      <br />Markers: Alpha = A, Beta = B, Gamma = C, Splice3 = 3 (with long Beta and Gamma), Splice2 = 2 (with long Alpha).
+      <br />Slice: Stack NW, Left/Right, (if lightning earlier, splice2 go to B, otherwise A. if wind earlier, splice3 go to B, otherwise C.), Empty Circle to combine elements, Colored Circle
+      <br />ABC short timer: Marker, Left/Right (or Middle then Colored Circle if same color), Stack at 3, Left/Right
+      <br />ABC long timer: Stack NW, Left/Right, Marker, Left/Right (or Empty Circle if same color to combine then Colored Circle)
+      <hr>
+      Credit: Based on <a href="https://www.dodsrv.com/BlueGavelQuiz/">Gavel Quiz</a>, which is based on <a href="https://harry-kwon.github.io/FFXIV-UCoB-Nael-Quiz/">Nael Van Darnus Quiz</a><br>
+      <hr>
+
+      <!-- Settings Pane -->
+      <div>
+        <h5>Settings:</h3>
+      
+          <div style="margin-left:30px;">
+            <!-- Time Limit checkbox -->
+
+            <div style="margin-left:20px;">
+              <input type="checkbox" class="form-check-input" id="skipDoneEnabled" value="false" onchange="toggleDone()">
+              <label class="form-check-label" for="skipDoneEnabled">Skip Done</label>
+            </div>
+            <div style="margin-left:20px;">
+              <input type="checkbox" class="form-check-input" id="timeLimitEnabled" value="false" onchange="timerEnableToggled(this)">
+              <label class="form-check-label" for="timeLimitEnabled">Enable Timer</label>
+            </div>
+            <br/>
+            <!-- Time Limit input -->
+            <label for="timeLimitInput">Time Limit (seconds)</label>
+            <input disabled type="number" class="form-control" id="timeLimitInput" style="width: 200px; display:block;" value="10">
+          </div>
+      </div>
+
+      <script src="scripts/highconcept.js"></script>
+
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="scripts/jquery-3.4.1.slim.min.js"></script>
+      <script src="scripts/popper.min.js"></script>
+      <script src="scripts/bootstrap.min.js"></script>
+    </div>
+  </body>
+</html>
